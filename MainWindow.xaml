@@ -1,12 +1,11 @@
-﻿<Window x:Class="MagazynekAM.MainWindow"
+﻿<Window x:Class="MagazynAM.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MagazynekAM"
+        xmlns:local="clr-namespace:MagazynAM"
         xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:viewModel="clr-namespace:MagazynekAM.MVVM.ViewModel"
-        xmlns:Behavior="clr-namespace:MagazynekAM.Utils"
+        xmlns:Behavior="clr-namespace:MagazynAM.Utils"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Magazynek Automatyka-Miedź"
@@ -46,7 +45,6 @@
         </StackPanel>
 
         <!-- SearchBox and buttons -->
-
         <DockPanel  Grid.Row="1"
                     HorizontalAlignment="Stretch">
 
@@ -55,7 +53,7 @@
                      Height="60"
                      VerticalAlignment="Center"
                      Margin="30,0,0,0"
-                     Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right"
@@ -63,23 +61,19 @@
                 <Button Style="{StaticResource AddButton}"
                         Tag="AddHomeRound"
                         Margin="0,0,20,0"
-                        Command="{Binding AddCommand}" 
-                        ToolTip="Dodaj przedmiot"/>
+                        Command="{Binding AddCommand}"
+                        ToolTip="Dodaj przedmiot" />
                 <Button Style="{StaticResource DeleteButton}"
                         Tag="Delete"
                         Margin="0,0,20,0"
                         Command="{Binding DeleteCommand}"
-                        ToolTip="Usuń przedmiot"/>
+                        ToolTip="Usuń przedmiot" />
                 <Button Style="{StaticResource EditButton}"
                         Tag="EditRound"
-                        Command="{Binding EditCommand}" 
-                        ToolTip="Edytuj przedmiot"/>
+                        Command="{Binding EditCommand}"
+                        ToolTip="Edytuj przedmiot" />
             </StackPanel>
-
-
         </DockPanel>
-
-
 
         <!-- DataGrid -->
         <Border Background="#393939"
@@ -173,6 +167,5 @@
               IsHitTestVisible="False"
               Style="{StaticResource DimGrid}">
         </Grid>
-
     </Grid>
 </Window>

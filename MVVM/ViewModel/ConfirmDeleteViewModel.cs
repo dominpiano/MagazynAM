@@ -1,11 +1,6 @@
 ﻿using ChatApp.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MagazynekAM.MVVM.ViewModel {
+namespace MagazynAM.MVVM.ViewModel {
     class ConfirmDeleteViewModel {
 
         public RelayCommand ConfirmCommand { get; set; }

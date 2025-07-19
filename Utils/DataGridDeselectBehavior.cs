@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace MagazynekAM.Utils {
+namespace MagazynAM.Utils {
     public static class DataGridDeselectBehavior {
+
         public static readonly DependencyProperty EnableDeselectOnClickOutsideProperty =
             DependencyProperty.RegisterAttached(
                 "EnableDeselectOnClickOutside",
@@ -24,15 +20,16 @@ namespace MagazynekAM.Utils {
         public static void SetEnableDeselectOnClickOutside(DependencyObject obj, bool value) =>
             obj.SetValue(EnableDeselectOnClickOutsideProperty, value);
 
+        //Basically whenever and wherever mouse is pressed we detect if user clicked inside or outside the dataGrid
         private static void OnEnableDeselectChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             if (d is DataGrid dataGrid) {
                 if ((bool)e.NewValue) {
                     dataGrid.Loaded += (s, args) => {
                         var window = Window.GetWindow(dataGrid);
-
                         if (window != null) {
                             window.PreviewMouseDown += (s2, e2) => {
                                 if (!IsClickInside(dataGrid, e2) && !IsClickOnButton(e2)) {
+                                    //Deselecting item and clearing focus on everything
                                     dataGrid.SelectedItem = null;
                                     Keyboard.ClearFocus();
                                 }
@@ -52,9 +49,9 @@ namespace MagazynekAM.Utils {
         private static bool IsClickOnButton(MouseButtonEventArgs e) {
             var source = e.OriginalSource as DependencyObject;
             while (source != null) {
-                if (source is ButtonBase && (string)(source as ButtonBase).Tag != "AddHomeRound") // Button, ToggleButton, etc.
+                //When delete and edit button are clicked, don't clear selection
+                if (source is ButtonBase && (string)(source as ButtonBase).Tag != "AddHomeRound")
                     return true;
-
                 source = VisualTreeHelper.GetParent(source);
             }
 

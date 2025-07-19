@@ -1,19 +1,8 @@
-﻿using MagazynekAM.MVVM.Model;
-using MagazynekAM.MVVM.View;
-using MagazynekAM.MVVM.ViewModel;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using MagazynAM.MVVM.View;
+using MagazynAM.MVVM.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace MagazynekAM;
+namespace MagazynAM;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -22,6 +11,7 @@ public partial class MainWindow : Window {
 
     public MainWindow() {
         InitializeComponent();
+        //Initialization of Dialog Services
         var itemDialServ = new DialogService(typeof(SingleItemDialog));
         var confirmDialServ = new DialogService(typeof(ConfirmDeleteDialog));
         var main = new MainViewModel(itemDialServ, confirmDialServ);

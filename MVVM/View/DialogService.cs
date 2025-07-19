@@ -1,15 +1,8 @@
-﻿using ChatApp.Core;
-using MagazynekAM.MVVM.ViewModel;
-using MagazynekAM.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MagazynAM.MVVM.ViewModel;
+using MagazynAM.Utils;
 using System.Windows;
 
-namespace MagazynekAM.MVVM.View {
+namespace MagazynAM.MVVM.View {
     public class DialogService : IDialogService {
 
         private Type windowType;
@@ -17,6 +10,7 @@ namespace MagazynekAM.MVVM.View {
             windowType = dialogType;
         }
 
+        //Generic function to create an instance of a window with given type (can be ItemDialog or ConfirmDeleteDialog)
         public bool? ShowDialog(bool isEditing = false, DataGridViewModel mandViewModel = null) {
             var dialogWindow = (Window) Activator.CreateInstance(windowType)!;
             dialogWindow.Owner = Application.Current.MainWindow;

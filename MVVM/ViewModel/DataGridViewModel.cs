@@ -1,23 +1,17 @@
 ﻿using ChatApp.Core;
 using MagazynAM.Utils;
-using MagazynekAM.MVVM.Model;
-using MagazynekAM.Utils;
-using System;
-using System.Collections.Generic;
+using MagazynAM.MVVM.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
-namespace MagazynekAM.MVVM.ViewModel {
+namespace MagazynAM.MVVM.ViewModel {
     public class DataGridViewModel : ObservableObject {
 
+        //Modifyable collection of items and corresponding filterable collection view
         public ObservableCollection<StoreItem> GridStoreItems { get; } = new ObservableCollection<StoreItem>();
-        
         public ICollectionView ItemsToShow { get; set; }
 
+        //Properties
         private StoreItem currSelItem;
         public StoreItem CurrentlySelectedItem {
             get { return currSelItem; }
@@ -34,6 +28,7 @@ namespace MagazynekAM.MVVM.ViewModel {
             LoadAllItems();
         }
 
+        //Main methods
         public void AddItem(StoreItem addItem) {
             jsonHandler.AddItemToJSON(addItem);
             LoadAllItems();
@@ -50,14 +45,13 @@ namespace MagazynekAM.MVVM.ViewModel {
         }
 
         public void LoadAllItems() {
-
             var items = jsonHandler.LoadItemsFromJSON();
             if (items == null) return;
 
+            //Refreshing item collection
             GridStoreItems.Clear();
             foreach (var item in items)
                 GridStoreItems.Add(item);
         }
-
     }
 }

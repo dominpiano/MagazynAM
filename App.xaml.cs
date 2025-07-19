@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace MagazynekAM;
+namespace MagazynAM;
 
 /// <summary>
 /// Interaction logic for App.xaml

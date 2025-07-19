@@ -1,26 +1,16 @@
 ﻿using ChatApp.Core;
-using Google.Protobuf.Compiler;
-using MagazynekAM.MVVM.Model;
-using MagazynekAM.MVVM.View;
-using MagazynekAM.Utils;
-using MahApps.Metro.Controls.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using MagazynAM.MVVM.Model;
+using MagazynAM.Utils;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 
-namespace MagazynekAM.MVVM.ViewModel {
+namespace MagazynAM.MVVM.ViewModel {
     public class MainViewModel : ObservableObject {
 
         public DataGridViewModel GridViewModel { get; } = new DataGridViewModel();
         public ICollectionView FilteredItems { get; set; }
 
+        //Properties
         private string _searchText;
         public string SearchText {
             get { return _searchText; }
@@ -31,8 +21,9 @@ namespace MagazynekAM.MVVM.ViewModel {
             }
         }
 
+        //Property which causes main window to blur and dim
         private bool isDialOpen;
-        public bool IsDialogOpen {
+        public bool IsDialogOpen { 
             get { return isDialOpen; }
             set {
                 if (isDialOpen != value) {
@@ -48,6 +39,7 @@ namespace MagazynekAM.MVVM.ViewModel {
         public RelayCommand? EditCommand { get; set; }
         public RelayCommand? RecordDoubleClick { get; set; }
 
+        //Instances of popups
         private readonly IDialogService itemDialogService;
         private readonly IDialogService confirmDeleteDialogService;
 
@@ -72,6 +64,7 @@ namespace MagazynekAM.MVVM.ViewModel {
             FilteredItems.Filter = FilterItems;
         }
 
+        //Main methods
         private void OpenItemDialog(object param) {
             IsDialogOpen = true;
             bool? result = itemDialogService.ShowDialog(false, GridViewModel);
@@ -103,6 +96,7 @@ namespace MagazynekAM.MVVM.ViewModel {
                 if (string.IsNullOrWhiteSpace(SearchText))
                     return true;
 
+                //We filter by everything
                 return item.Nazwa.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
                     || item.Model.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
                     || item.Producent.Contains(SearchText, StringComparison.OrdinalIgnoreCase);

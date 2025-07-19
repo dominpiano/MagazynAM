@@ -1,16 +1,11 @@
-﻿using MagazynekAM.MVVM.ViewModel;
+﻿using MagazynAM.MVVM.ViewModel;
 using Microsoft.Xaml.Behaviors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace MagazynekAM.Utils {
-
+namespace MagazynAM.Utils {
     public class AutoCompleteBehavior : Behavior<TextBox> {
+
         protected override void OnAttached() {
             AssociatedObject.PreviewKeyDown += OnPreviewKeyDown;
             AssociatedObject.TextChanged += OnTextChanged;
@@ -21,13 +16,14 @@ namespace MagazynekAM.Utils {
             AssociatedObject.TextChanged -= OnTextChanged;
         }
 
+        //Helper variables
         private int _prevTypedTextLength = 0;
         private int _prevTextLength = 0;
 
         private void OnTextChanged(object sender, TextChangedEventArgs e) {
             if (AssociatedObject.DataContext is DialogViewModel vm) {
 
-
+                //Get textbox
                 var tb = AssociatedObject;
 
                 //If text is inserted not typed we have to leave it alone
@@ -38,7 +34,7 @@ namespace MagazynekAM.Utils {
                 string typedText = tb.Text.Substring(0, caretPos);
                 string suggestion = vm.SuggestedSupplierText ?? "";
 
-
+                //Desensitize textbox to text changes for that moment code is altering text
                 tb.TextChanged -= OnTextChanged;
 
                 //Here we are checking if IF we pressed backspace (first cond.) and the text before was a suggestion (second cond.)
@@ -73,6 +69,7 @@ namespace MagazynekAM.Utils {
                         tb.Text = "";
                 }
 
+                //And go back to reacting to text change
                 _prevTextLength = tb.Text.Length;
                 tb.TextChanged += OnTextChanged;
 
@@ -80,6 +77,7 @@ namespace MagazynekAM.Utils {
         }
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e) {
+            //If enter is pressed, we accept the suggestion
             if (e.Key == Key.Enter && AssociatedObject.DataContext is DialogViewModel vm) {
                 var tb = AssociatedObject;
 

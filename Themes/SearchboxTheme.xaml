@@ -1,5 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Searchbox style -->
     <Style x:Key="Searchbox"
            TargetType="TextBox">
         <Setter Property="Foreground"
@@ -59,4 +61,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
 </ResourceDictionary>

@@ -1,19 +1,11 @@
 ﻿using ChatApp.Core;
-using MagazynekAM.MVVM.Model;
-using System;
-using System.Collections.Generic;
+using MagazynAM.MVVM.Model;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
-namespace MagazynekAM.MVVM.ViewModel {
+namespace MagazynAM.MVVM.ViewModel {
     public class DialogViewModel : ObservableObject {
 
-        //Props
+        //Properties
         private string _nameText;
         public string NameText {
             get { return _nameText; }
@@ -73,17 +65,18 @@ namespace MagazynekAM.MVVM.ViewModel {
         //Requesting closing window with desired outcome
         public event Action<bool?> RequestClose;
 
-        private DataGridViewModel gridVM;
-
-        private bool IsEditingItem;
-
         //Suggestions for suppliers
         public ObservableCollection<string> AllSuggestions { get; } = new ObservableCollection<string> {
             "ABB", "Advantech", "Allen-Bradley", "B&R", "Beckhoff", "Bosch Rexroth", "Delta Electronics", "Festo", "Hitachi", "Keyence", "Lenze", 
             "Mitsubishi Electric", "Modicon", "Omron", "Panasonic", "Phoenix Contact", "Schneider Electric", "Siemens", "Texas Instruments", "WAGO", "WEG", "Yokogawa"
         };
 
+        private DataGridViewModel gridVM;
+
+        private bool IsEditingItem;
+
         public DialogViewModel(bool isEditing, DataGridViewModel refViewModel) {
+            //Default quantity is 1
             QuantityText = "1";
             IsEditingItem = isEditing;
             gridVM = refViewModel;
@@ -102,6 +95,7 @@ namespace MagazynekAM.MVVM.ViewModel {
             ChangeQtyCommand = new RelayCommand(ChangeQty);
         }
 
+        //Main methods
         private void ConfirmDialog(object param) {
             StoreItem newItem = new StoreItem() {
                 Nazwa = NameText,
@@ -126,16 +120,15 @@ namespace MagazynekAM.MVVM.ViewModel {
 
         private void ChangeQty(object param) {
             bool isAdd = bool.Parse((string)param);
-            if (isAdd) {
+            if (isAdd) 
                 ItemQuantity++;
-            }
-            else {
+            else 
                 if (ItemQuantity > 0)
                     ItemQuantity--;
-            }
             QuantityText = ItemQuantity.ToString();
         }
 
+        //Helper methods
         private void UpdateSuggestion() {
             var suggestion = AllSuggestions.FirstOrDefault(s => s.StartsWith(SupplierText ?? "", StringComparison.InvariantCultureIgnoreCase));
             SuggestedSupplierText = suggestion ?? SupplierText;

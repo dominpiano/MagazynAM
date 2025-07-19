@@ -1,12 +1,6 @@
-﻿using MagazynekAM.MVVM.Model;
+﻿using MagazynAM.MVVM.Model;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MagazynAM.Utils {
@@ -17,10 +11,10 @@ namespace MagazynAM.Utils {
         private List<StoreItem> storeItems;
 
         public JSONHandler() {
-            //TODO: ZMIENIC DO RELEASA
             jsonPath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName, @"Files\items.json");
         }
 
+        //Main methods
         public void AddItemToJSON(StoreItem itemToAdd) {
             var items = LoadItemsFromJSON();
             itemToAdd.ID = items.Last().ID + 1;
@@ -42,11 +36,9 @@ namespace MagazynAM.Utils {
         }
 
         public List<StoreItem> LoadItemsFromJSON() {
-
             try {
 
                 jsonText = File.ReadAllText(jsonPath);
-
                 if (!string.IsNullOrWhiteSpace(jsonText)) {
                     var deserialized = JsonConvert.DeserializeObject<List<StoreItem>>(jsonText);
 
@@ -70,6 +62,5 @@ namespace MagazynAM.Utils {
             var serialized = JsonConvert.SerializeObject(items, Formatting.Indented);
             File.WriteAllText(jsonPath, serialized);
         }
-
     }
 }
