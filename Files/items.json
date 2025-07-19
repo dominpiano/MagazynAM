@@ -1,0 +1,23 @@
+[
+  {
+    "ID": 1,
+    "Nazwa": "Moduł 8DO",
+    "Model": "533-125",
+    "Producent": "Wago",
+    "Ilosc": 3
+  },
+  {
+    "ID": 2,
+    "Nazwa": "Moduł 4DO",
+    "Model": "533-124",
+    "Producent": "Wago",
+    "Ilosc": 1
+  },
+  {
+    "ID": 3,
+    "Nazwa": "Moduł 8AI",
+    "Model": "533-265",
+    "Producent": "WAGO",
+    "Ilosc": 5
+  }
+]

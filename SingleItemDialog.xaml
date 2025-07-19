@@ -1,0 +1,215 @@
+﻿<Window x:Class="MagazynekAM.SingleItemDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagazynekAM"
+        xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:viewModel="clr-namespace:MagazynekAM.MVVM.ViewModel"
+        xmlns:View="clr-namespace:MagazynekAM.MVVM.View"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:MagazynekAM.Utils"
+        mc:Ignorable="d"
+        Title="Dodaj/edytuj przedmiot"
+        Width="800"
+        Height="600"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Window.Resources>
+        <FontFamily x:Key="Roboto Slab">/Fonts/#Roboto Slab</FontFamily>
+        <!-- Every label style -->
+        <Style TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="36" />
+            <Setter Property="FontFamily"
+                    Value="{StaticResource Roboto Slab}" />
+            <Setter Property="FontWeight"
+                    Value="Light" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Foreground"
+                    Value="#afafaf" />
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#393939"
+            CornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Dodaj | Edytuj Przedmiot" />
+            
+            <!-- Name Field -->
+            <DockPanel Grid.Row="1">
+                <Label Content="Nazwa"
+                       FontSize="28"
+                       Margin="20,0,0,0" />
+                <TextBox Width="450"
+                         Height="60"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Right"
+                         Margin="0,0,20,0"
+                         Text="{Binding NameText, UpdateSourceTrigger=PropertyChanged}"
+                         TabIndex="1">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox"
+                               BasedOn="{StaticResource InputTextbox}">
+                            <Style.Triggers>
+                                <Trigger Property="Text"
+                                         Value="">
+                                    <Setter Property="Background"
+                                            Value="#FFC8C8" />
+                                    <Setter Property="BorderBrush"
+                                            Value="#F33939" />
+                                    <Setter Property="BorderThickness"
+                                            Value="1" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </DockPanel>
+
+            <!-- Model Field -->
+            <DockPanel Grid.Row="2">
+                <Label Content="Model"
+                       FontSize="28"
+                       Margin="20,0,0,0" />
+                <TextBox Style="{StaticResource InputTextbox}"
+                         Width="450"
+                         Height="60"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Right"
+                         Margin="0,0,20,0"
+                         Text="{Binding ModelText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         TabIndex="2" />
+            </DockPanel>
+
+            <!-- Supplier Field -->
+            <DockPanel Grid.Row="3">
+                <Label Content="Producent"
+                       FontSize="28"
+                       Margin="20,0,0,0" />
+                <TextBox Style="{StaticResource InputTextbox}"
+                         Width="450"
+                         Height="60"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Right"
+                         Margin="0,0,20,0"
+                         Text="{Binding SupplierText, UpdateSourceTrigger=PropertyChanged}"
+                         TabIndex="3">
+                    <i:Interaction.Behaviors>
+                        <behaviors:AutoCompleteBehavior />
+                    </i:Interaction.Behaviors>
+                </TextBox>
+                
+            </DockPanel>
+
+            <!-- Quantity Field -->
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="480" />
+                </Grid.ColumnDefinitions>
+                
+                <Label Content="Ilość"
+                       FontSize="28"
+                       Margin="20,0,0,0" 
+                       HorizontalAlignment="Left"/>
+                
+                <!-- Change quantity buttons -->
+                <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,5,0"
+                            Grid.Column="1">
+                    <Button Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Width="30"
+                            Height="30"
+                            Cursor="Hand"
+                            Style="{StaticResource ChangeQtyButton}"
+                            Command="{Binding ChangeQtyCommand}"
+                            CommandParameter="True">
+                        <Button.Content>
+                            <Icons:MaterialDesign Kind="ChevronLeftRound"
+                                                  Width="25"
+                                                  Height="25" />
+                        </Button.Content>
+                    </Button>
+                    <Button Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Width="30"
+                            Height="30"
+                            Cursor="Hand"
+                            Style="{StaticResource ChangeQtyButton}"
+                            Command="{Binding ChangeQtyCommand}"
+                            CommandParameter="False">
+                        <Button.Content>
+                            <Icons:MaterialDesign Kind="ChevronRightRound"
+                                                  Width="25"
+                                                  Height="25" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+                
+                <!-- Quantity Textbox -->
+                <TextBox Width="450"
+                         Height="60"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Right"
+                         Margin="0,0,20,0"
+                         Grid.Column="2"
+                         Text="{Binding QuantityText, UpdateSourceTrigger=PropertyChanged}"
+                         TabIndex="4">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox"
+                               BasedOn="{StaticResource InputTextbox}">
+                            <Style.Triggers>
+                                <Trigger Property="Text"
+                                         Value="">
+                                    <Setter Property="Background"
+                                            Value="#FFC8C8" />
+                                    <Setter Property="BorderBrush"
+                                            Value="#F33939" />
+                                    <Setter Property="BorderThickness"
+                                            Value="1" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Row="5"
+                        Margin="0,0,15,0">
+                <Button Content="OK"
+                        IsDefault="True"
+                        Style="{StaticResource InputOKButton}"
+                        Command="{Binding ConfirmCommand}"
+                        TabIndex="5" />
+                <Button Content="Anuluj"
+                        IsCancel="True"
+                        Style="{StaticResource InputAnulujButton}"
+                        Command="{Binding CancelCommand}"
+                        TabIndex="6" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
